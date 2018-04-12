@@ -1,0 +1,31 @@
+<form solo-form name="vm.form" class="solo-form-thin" ng-submit="vm.submit()" novalidate>
+    <ion-view class="login-view auth-view" cache-view="false" style="background-color: #fff">
+        <ion-content>
+            <div class="responsive-container top-25-percent">
+                <img class="logo top-40" src="main/assets/images/solo-logo.png">
+            </div>
+              <!-- email -->
+            <div solo-form-group validation-disabled="{{vm.validationDisabled}}" class="top-40">
+                <label class="item item-input item-floating-label">
+                    <input type="email" placeholder="Email address" name="loginName" ng-model="vm.user.loginName" solo-input-format="email" solo-autofocus="!vm.user.loginName">
+                </label>
+                <div solo-form-group-errors="vm.form.loginName" label="Email"></div>
+            </div>
+            <!-- password -->
+            <div solo-form-group validation-disabled="{{vm.validationDisabled}}">
+                <label class="item item-input item-floating-label">
+                    <input type="password" placeholder="Password" name="password" ng-model="vm.user.password" solo-autofocus="!!vm.user.loginName">
+                </label>
+                <div solo-form-group-errors="vm.form.password" label="Password"></div>
+            </div>
+            <div class="text-center text-soft top-20" style="font-style: italic;">
+                {{vm.currentAppVersion}}
+            </div>
+        </ion-content>
+        <ion-footer-bar class="solo-footer-button bar-footer-action-center" solo-keyboard-attach>
+            <button type="submit" class="button button-positive button-block top-0 bottom-0" ladda="vm.form.loading" ng-disabled="vm.form.$invalid || vm.form.$submitted">
+                <h4 class="text-light bottom-0"> {{vm.form.loading ? 'Logging In' : 'Login'}} </h4>
+            </button>
+        </ion-footer-bar>
+    </ion-view>
+</form>

@@ -1,0 +1,54 @@
+<ion-view view-title="Load History" class="top-load-history">
+    <ion-content>
+        <ion-refresher spinner="crescent" on-refresh="main.refreshState()"></ion-refresher>
+        <h3 ng-if="!vm.currentLoads.length" class="text-center top-20">
+            No Load History
+        </h3>
+        <ion-list>
+            <ion-item ng-repeat="load in vm.currentLoads | orderHistory" class="card item-text-wrap" style="margin: 10px 5px; padding: 0px 1%;">
+                <h2 ng-if="load.id === vm.uploadedLoadId" class="top-10 bottom-0 text-large text-center text-positive" style="font-weight: bold;">
+                    Bill of Lading was Submitted
+                    <p>(load will now be inside your load History tab)<p>
+                    <div class="top-5 bottom-0" style="border-bottom: 1px solid #dedede; margin: 0 5px; border-bottom: 1px solid #017ebd;"></div>
+                </h2>
+                <h2 class="row top-5 bottom-0" ng-class="{'text-bold': load.id === vm.uploadedLoadId}">
+                    <span>
+                        {{load.origin.city}}, {{load.origin.state}}
+                    </span>
+                    &nbsp; &nbsp;
+                    <i class="icon ion-ios-arrow-thin-right" style="font-size: 30px; position: relative; top: -8px; height: 19px;"></i>
+                    &nbsp; &nbsp;
+                    <span>
+                        {{load.destination.city}}, {{load.destination.state}}
+                    </span>
+                </h2>
+                <h3 class="row top-0 bottom-0 text-calm">
+                    <b> {{load.statusDisplayMessage}} </b>
+                </h3>
+                <div ng-if="load.status === 'signedRc' || load.status === 'pickedUp' || load.status === 'droppedOff'" class="row top-0 bottom-0">
+                    <button ng-if="load.status === 'signedRc'" class="button button-positive button-block button-outline" ng-click="vm.confirmLoadPickUp(load)">
+                        Pick Up Load
+                    </button>
+                    <button ng-if="load.status === 'pickedUp'" class="button button-positive button-block button-outline" ng-click="vm.confirmLoadDropOff(load)">
+                        Drop Off Load
+                    </button>
+                    <a ng-if="load.status === 'droppedOff'" class="button button-positive button-block button-outline" ui-sref="top.main.loads.load.details({loadType: 'history', loadId: load.id})">
+                        Upload Bill of Lading
+                    </a>
+                </div>
+                <h3 class="row top-0 bottom-0">
+                    Pick up: {{load.origin.formattedDate}}
+                </h3>
+                <h3 class="row top-0 bottom-0" ng-class="{'bottom-10': $last}">
+                    <div class="col col-80" style="padding: 0px">
+                        Distance: {{load.miles | number:0}} mi
+                    </div>
+                    <div class="col col-20 text-right" style="padding: 0px; color: #017ebd;" ui-sref="top.main.loads.load.details({loadType: 'history', loadId: load.id})">
+                        Details
+                        <i class="icon ion-chevron-right" style="position: relative; top: 1px; font-size: 15px; line-height: 14px;"></i>
+                    </div>
+                </h3>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

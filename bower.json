@@ -1,7 +1,32 @@
 {
-  "name": "HelloIonic",
-  "private": "true",
-  "devDependencies": {
-    "ionic": "ionic-team/ionic-bower#1.3.4"
+  "name": "Solo-Mobile-App",
+  "version": "0.0.30",
+  "private": true,
+  "dependencies": {
+    "ionic": "ionic-team/ionic-bower#1.3.4",
+    "ngCordova": "0.1.26-alpha",
+    "angular-messages": "1.4.5",
+    "angular-moment": "0.10.3",
+    "angular-ladda": "0.3.4",
+    "jquery": "2.1.4",
+    "lodash": "4.6.1",
+    "restangular": "1.5.2",
+    "ng-token-auth": "0.0.28",
+    "ionic-datepicker": "^1.2.0",
+    "angular-mocks": "1.4.5",
+    "angular-pdf": "^1.3.0",
+    "ngstorage": "^0.3.11",
+    "ng-cropper": "^0.4.1",
+    "angular-input-masks": "^2.5.0"
+  },
+  "overrides": {
+    "angular": {
+      "dependencies": {
+        "jquery": "2.1.4"
+      }
+    }
+  },
+  "resolutions": {
+    "angular": "1.4.5"
   }
 }

@@ -1,0 +1,10 @@
+.hover-shadow {
+    box-shadow: 0 3px 8px 0 rgba(0,0,0,.16) !important;
+    -webkit-transition: box-shadow 0.2s linear;
+    -moz-transition: box-shadow 0.2s linear;
+    -o-transition: box-shadow 0.2s linear;
+    transition: box-shadow 0.2s linear;
+}
+.solo-hover-sub-nav.hover-shadow {
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3) !important;
+}

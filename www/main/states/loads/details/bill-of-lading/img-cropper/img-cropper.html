@@ -1,0 +1,12 @@
+<form solo-form name="vm.form" ng-submit="vm.submit()" novalidate>
+    <ion-view view-title="Crop Bill Of Lading" class="solo-img-cropper">
+        <ion-content ng-class="{resolving: vm.form.loading}" scroll="false">
+            <img ng-src="{{vm.dataUrl}}" ng-cropper ng-cropper-proxy="cropperProxy" ng-cropper-show="vm.showEvent" ng-cropper-options="vm.options">
+        </ion-content>
+        <ion-footer-bar class="solo-footer-button bar-footer-action-center" solo-keyboard-attach>
+            <button type="submit" class="button button-positive button-block top-0 bottom-0" ladda="vm.form.loading" ng-disabled="vm.form.$invalid || vm.form.$submitted">
+                <h4 class="text-light bottom-0"> {{vm.form.loading ? 'Saving...' : 'Save'}} </h4>
+            </button>
+        </ion-footer-bar>
+    </ion-view>
+</form>

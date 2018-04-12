@@ -1,0 +1,9 @@
+<ion-view view-title="Rate Confirmation">
+    <ion-content has-bouncing="false">
+        <div style="height: 44px; width: 44px; z-index: 30; position: absolute; right: 10px; top: 10px;"></div>
+        <div style="height: 44px; width: 44px; z-index: 25; position: absolute; right: 10px; top: 10px;"></div>
+        <div style="height: 44px; width: 44px; z-index: 20; position: absolute; right: 10px; top: 10px;"></div>
+        <img src="main/assets/images/delivery-truck-loading.gif" style="height: 50px; z-index: 0; position: absolute; right: 44%; top: 150px;">
+        <iframe ng-src="{{vm.pdfurl}}" ng-style="vm.iframeStyle" style="z-index: 5; position: fixed;"></iframe>
+    </ion-content>
+</ion-view>

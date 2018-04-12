@@ -1,0 +1,12 @@
+<div>
+    <h4 class="top-5 bottom-5 text-center">Only book this load if you called the shipper and agreed on receiving a Rate Confirmation.</h4>
+    <h4 class="top-5 bottom-5 text-center">If so, enter the agreed upon rate:</h4>
+    <div class="list bottom-0">
+        <label class="item item-input">
+            <!-- C: need type attribute set to 'tel' as 'number' is not supported by ui-money-mask and we need number keypad to be dispalyed on mobile when input is selected: https://github.com/assisrafael/angular-input-masks/issues/163 -->
+            <input type="tel" class="text-center" placeholder="Agreed Upon Rate" name="agreedUponRate" ng-model="vm.rateExpected" ui-money-mask="2">
+        </label>
+    </div>
+    <p class="text-assertive bottom-0" ng-show="vm.displayMissingRateWarning">Agreed upon rate is required</p>
+    <p class="text-assertive bottom-0" ng-show="vm.displayRateRangeWarning">Rate must be between $10 - $10,000</p>
+</div>

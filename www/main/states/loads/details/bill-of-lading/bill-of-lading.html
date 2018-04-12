@@ -1,0 +1,55 @@
+<ion-view view-title="Bill of Lading" class="solo-load-bill-of-lading">
+    <!-- delete receipt -->
+    <ion-nav-buttons side="right">
+        <button
+            ng-show="vm.bolPages.length > 0 && vm.load.status === 'droppedOff'"
+            class="button button-icon ion-ios-trash-outline"
+            ng-click="vm.displayDeletePageOption = !vm.displayDeletePageOption"
+            ng-class="{'text-assertive': vm.displayDeletePageOption}"></button>
+    </ion-nav-buttons>
+    <!-- receipts -->
+    <ion-content class="bar-subheader solo-add-img-button-content" style="height: auto;">
+        <div class="col col-33 solo-add-img-button" style="position: fixed; z-index: 1; margin: 5px 0 0 5px;">
+            <button class="text-center button button-positive button-block button-outline top-0 bottom-0" ng-style="{height: vm.bolImgHeight}" ng-click="vm.takePictureAndUpload()">
+                <i class="icon ion-camera"></i>
+                <p class="bottom-0">Click to</p>
+                <p class="bottom-0">add additional</p>
+                <p class="bottom-0">pages from</p>
+                <p class="bottom-0">Bill of Lading</p>
+            </button>
+        </div>
+        <div class="row" ng-repeat="bolPage in vm.bolPages" ng-if="$index === 0 || ($index + 1) % 3 === 0">
+            <div class="col col-33" ng-if="$index === 0" ng-style="{height: vm.bolImgHeight}">
+            </div>
+            <div class="col col-33" ng-if="$index < vm.bolPages.length">
+                <div class="solo-img-background" ng-style="{height: vm.bolImgHeight}" ng-click="vm.displayPageInSlider($index)">
+                    <img ng-src="{{vm.bolPages[$index]}}" style="height: 100%; width: 100%" />
+                </div>
+                <button ng-show="vm.displayDeletePageOption" class="solo-delete-button button button-assertive button-block top-0 bottom-0" style="min-height: 0; height: 32px; border-radius: 0;" ng-click="vm.deleteReceipt(vm.bolPages[$index])">
+                    <i class="icon ion-ios-trash-outline"></i>
+                </button>
+            </div>
+            <div class="col col-33" ng-if="$index + 1 < vm.bolPages.length">
+                <div class="solo-img-background" ng-style="{height: vm.bolImgHeight}" ng-click="vm.displayPageInSlider($index + 1)">
+                    <img ng-src="{{vm.bolPages[$index + 1]}}" style="height: 100%; width: 100%" />
+                </div>
+                <button ng-show="vm.displayDeletePageOption" class="solo-delete-button button button-assertive button-block top-0 bottom-0" style="min-height: 0; height: 32px; border-radius: 0;" ng-click="vm.deleteReceipt(vm.bolPages[$index + 1])">
+                    <i class="icon ion-ios-trash-outline"></i>
+                </button>
+            </div>
+            <div class="col col-33" ng-if="($index + 2) > 3 && $index + 2 < vm.bolPages.length">
+                <div class="solo-img-background" ng-style="{height: vm.bolImgHeight}" ng-click="vm.displayPageInSlider($index + 2)">
+                    <img ng-src="{{vm.bolPages[$index + 2]}}" style="height: 100%; width: 100%" />
+                </div>
+                <button ng-show="vm.displayDeletePageOption" class="solo-delete-button button button-assertive button-block top-0 bottom-0" style="min-height: 0; height: 32px; border-radius: 0;" ng-click="vm.deleteReceipt(vm.bolPages[$index + 2])">
+                    <i class="icon ion-ios-trash-outline"></i>
+                </button>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="solo-footer-button bar-footer-action-center" solo-keyboard-attach>
+        <button ng-disabled="vm.bolPages.length === 0 || (vm.load.status !== 'droppedOff' && vm.load.status !== 'uploadedBol')" class="button button-positive button-block top-0 bottom-0" ng-click="vm.confirmUploadBillOfLading()">
+            <h4 class="text-light">Submit Complete Bill of Lading</h4>
+        </button>
+    </ion-footer-bar>
+</ion-view>

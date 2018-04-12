@@ -1,0 +1,100 @@
+<form solo-form name="vm.form" class="solo-form-thin" ng-submit="vm.submit()" novalidate>
+    <ion-view view-title="Search Loads" cache-view="false">
+        <ion-content>
+            <ion-list>
+                <!-- Equipment Type -->
+                <ion-item class="item-remove-animate item-icon-right" type="item-text-wrap" ng-click="vm.openEquipmentTypePopup()" style="border-top: none;">
+                    <h2 class="text-dark-title">Equipment Type</h2>
+                    <div>
+                        <span class="text-positive text-soft" ng-show="vm.data.equipmentTypes.filter(vm.isActive).length === 0" style="font-size: 14px;">
+                            Enter Equipment Types
+                        </span>
+                        <span ng-repeat="equipmentType in vm.data.equipmentTypes.filter(vm.isActive)" class="text-large tag top-10" style="margin: 0px 5px 0px 0px;">
+                            {{equipmentType.name}}
+                        </span>
+                    </div>
+                    <i class="icon ion-chevron-right ion-large icon-accessory"></i>
+                </ion-item>
+                <!-- Load Size -->
+                <ion-item class="item-remove-animate item-icon-right" type="item-text-wrap" ng-click="vm.openLoadTypesPopup()">
+                    <h2 class="text-dark-title">Load Size</h2>
+                    <div>
+                        <span class="text-positive text-soft" ng-show="!vm.data.loadType" style="font-size: 14px;">
+                            Enter Load Size
+                        </span>
+                        <div class="text-large" ng-show="vm.data.loadType" style="font-size: 14px;">
+                            {{vm.data.loadType.name}}
+                        </div>
+                    </div>
+                    <i class="icon ion-chevron-right ion-large icon-accessory"></i>
+                </ion-item>
+                <!-- Pickup Date -->
+                <ion-item class="item-input item-stacked-label" type="item-text-wrap" style="padding: 14px 16px;">
+                    <h2 class="text-dark-title bottom-5">Pickup Date Range</h2>
+                    <div class="text-large row bottom-10" style="padding: 0px;">
+                        <span class="col col-33" style="padding: 0px;" ng-click="vm.openSearchDatePicker(vm, 'from')">
+                            <span ng-class="{ 'text-soft': !vm.data.dateRange.from }" style="padding-bottom: 2px; border-bottom: 1px solid #8f8f8f;">
+                                {{ vm.data.dateRange.from ? vm.data.dateRange.from.format("MM-DD-YYYY") : 'Select From' }}
+                            </span>
+                        </span>
+                        <span class="text-center col col-33" style="padding: 0px;">
+                            <span>
+                                <i class="icon ion-minus-round ion-large icon-accessory" style="padding: 0px;"></i>
+                            </span>
+                        </span>
+                        <span class="text-center col col-33" style="padding: 0px;" ng-click="vm.openSearchDatePicker(vm, 'to')">
+                            <span ng-class="{ 'text-soft': !vm.data.dateRange.to }" style="padding-bottom: 2px; border-bottom: 1px solid #8f8f8f;">
+                                {{ vm.data.dateRange.to ? vm.data.dateRange.to.format("MM-DD-YYYY") : 'Select To' }}
+                            </span>
+                        </span>
+                    </div>
+                    <div class="row text-positive text-soft bottom-5" style="padding: 0px; font-size: 14px;" ng-show="!vm.data.dateRange.from">
+                        Enter "From" Date
+                    </div>
+                    <div class="row text-positive text-soft" style="padding: 0px; font-size: 14px;" ng-show="!vm.data.dateRange.to">
+                        Enter "To" Date
+                    </div>
+                </ion-item>
+                <!-- Pickup Location -->
+                <ion-item class="item-remove-animate item-icon-right" type="item-text-wrap" ng-click="vm.openOriginModal()">
+                    <h2 class="text-dark-title">Pickup Location</h2>
+                    <i class="icon ion-chevron-right ion-large icon-accessory"></i>
+                    <div class="text-positive text-soft" ng-show="!vm.data.origin.city" style="font-size: 14px;">
+                        Add Pickup Location
+                    </div>
+                    <div class="text-large" ng-show="vm.data.origin.city">
+                        {{ vm.data.origin.miles + ' miles within ' + vm.data.origin.city +', ' + vm.data.origin.state }}
+                    </div>
+                </ion-item>
+                <!-- Destination(s) -->
+                <ion-item class="item-remove-animate item-icon-right" type="item-text-wrap" ng-click="vm.openDestinationModal()">
+                    <h2 class="text-dark-title">Destination(s)</h2>
+                    <i class="icon ion-chevron-right ion-large icon-accessory"></i>
+                    <div class="text-positive text-soft" ng-show="vm.data.destinations.length === 0" style="font-size: 14px;">
+                        Add Destination
+                    </div>
+                    <div class="text-large" ng-show="vm.data.destinations.length > 0">
+                        <div ng-repeat="destination in vm.data.destinations">
+                            <div ng-if="destination.type === 'radius'">
+                                {{ destination.miles + ' miles within ' + destination.city +', ' + destination.state }}
+                            </div>
+                            <div ng-if="destination.type === 'state'">
+                                {{ 'All ' + destination.state }}
+                            </div>
+                            <div ng-if="destination.type === 'merica'">
+                                All States
+                            </div>
+                        </div>
+                    </div>
+                </ion-item>
+            </ion-list>
+            <!-- Hidden Field Used for Form Validation -->
+            <input type="text" name="allDataIsFilled" ng-model="vm.allDataIsFilled" required style="display: none;">
+        </ion-content>
+        <ion-footer-bar class="solo-footer-button bar-footer-action-center">
+            <button type="submit" class="button button-positive button-block top-0 bottom-0" ladda="vm.form.loading" ng-disabled="vm.form.$invalid || vm.form.loading">
+                <h4 class="text-light bottom-0"> {{vm.form.$invalid ? 'Enter All Info' : 'Search'}} </h4>
+            </button>
+        </ion-footer-bar>
+    </ion-view>
+</form>

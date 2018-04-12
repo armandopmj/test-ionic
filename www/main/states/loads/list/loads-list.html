@@ -1,0 +1,116 @@
+<ion-view view-title="{{vm.filters.status ? 'Called Loads' : 'Loads'}}" class="solo-loads-list">
+    <ion-content has-bouncing="true" solo-hover>
+        <!-- Filters -->
+        <div ng-if="!vm.filters.status">
+            <div class="row" style="background-color: #e8e8e8;">
+                <p class="bottom-0 col col-75" style="padding: 0 5px;">
+                    <b>Pickup Location:</b> {{vm.filters.origin.miles}}mi. within {{vm.filters.origin.city}}, {{vm.filters.origin.state}}<span ng-show="!vm.filtersShown">...</span>
+                </p>
+                <p class="bottom-0 col col-25" style="padding: 0 5px;" ng-show="!vm.filtersShown">
+                    <button type="button" ng-click="vm.filtersShown = !vm.filtersShown" class="text-dark-title button button-small button-outline" style="min-height: 10px; line-height: 0; padding: 9px; float: right;">
+                        More
+                    </button>
+                </p>
+            </div>
+            <div class="row" style="background-color: #e8e8e8;" ng-show="vm.filtersShown">
+                <p class="bottom-0 col col-75" style="padding: 0 5px;">
+                    <b>Pickup Range:</b> {{vm.filters.dateRange.from.format("MMM Do")}} - {{vm.filters.dateRange.to.format("MMM Do")}}
+                </p>
+            </div>
+            <div class="row" style="background-color: #e8e8e8;" ng-show="vm.filtersShown">
+                <p class="bottom-0 col" style="padding: 0 5px;">
+                    <b>Destinations:</b>
+                    <span ng-repeat="destination in vm.filters.destinations">
+                        <span ng-if="destination.type === 'state'">All {{destination.state}}</span>
+                        <span ng-if="destination.type === 'radius'">{{destination.miles}}mi. within {{destination.city}}, {{destination.state}}</span>
+                        <span ng-if="destination.type === 'merica'">All Destinations</span>
+                        <span ng-if="$index !== vm.filters.destinations.length - 1">  | </span>
+                    </span>
+                </p>
+            </div>
+            <div class="row" style="background-color: #e8e8e8;" ng-show="vm.filtersShown">
+                <p class="bottom-0 col col-75" style="padding: 0 5px;">
+                    <span ng-repeat="equipment in vm.filters.equipmentTypes">
+                        <span>{{equipment.name}}</span>
+                    </span>
+                    | {{vm.filters.loadType.name}}
+                </p>
+                <p class="bottom-0 col col-25" style="padding: 0 5px;">
+                    <button type="button" ng-click="vm.filtersShown = !vm.filtersShown" class="text-dark-title button button-small button-outline" style="min-height: 10px; line-height: 0; padding: 9px; float: right;">
+                        Collapse
+                    </button>
+                </p>
+            </div>
+        </div>
+        <div ng-if="vm.loads.length > 0" class="row" style="padding: 0px 5px; margin-bottom: -8px;">
+            <div class="col" style="padding: 0px 5px;">
+                Number of Loads: {{vm.loads.resultsLength}}
+            </div>
+        </div>
+        <div ng-if="vm.loads.length === 0" class="row">
+            <h3 class="text-soft col text-center top-50">No {{vm.filters.status ? 'Called' : ''}} Loads</h3>
+        </div>
+        <!-- Loads List -->
+        <ion-list class="solo-hover-scroll-anchor">
+            <ion-item class="card item-text-wrap" ng-repeat="load in vm.loads | orderBy:(vm.filters.status ? '-timeCalled' : '')" style="margin: 10px 5px; padding: 0px 1%;">
+                <h2 class="row text-large top-5">
+                    <span>
+                        {{load.origin.city}}, {{load.origin.state}}
+                    </span>
+                    &nbsp; &nbsp;
+                    <i class="icon ion-ios-arrow-thin-right" style="font-size: 30px; position: relative; top: -6px; height: 20px;"></i>
+                    &nbsp; &nbsp;
+                    <span>
+                        {{load.destination.city}}, {{load.destination.state}}
+                    </span>
+                </h2>
+                <div class="row top-5">
+                    <div class="col col-25 padding-none text-center" style="border-right: 1px solid #dedede;">
+                        <h3 class="text-dark-title">Dead Head</h3>
+                        <h2 class="text-large">{{load.origin.deadhead || "N/A"}}</h2>
+                    </div>
+                    <div class="col col-25 padding-none text-center" style="border-right: 1px solid #dedede;">
+                        <h3 class="text-dark-title">Distance</h3>
+                        <h2 class="text-large">{{load.miles}}</h2>
+                    </div>
+                    <div class="col col-25 padding-none text-center" style="border-right: 1px solid #dedede;">
+                        <h3 class="text-dark-title">Load Age</h3>
+                        <h2 class="text-large">{{load.timePostedAgo}}</h2>
+                    </div>
+                    <div class="col col-25 padding-none text-center">
+                        <h3 class="text-dark-title">Pick Up</h3>
+                        <h2 style="font-size: 18px;padding-top: 2px;">{{load.origin.formattedDate}}</h2>
+                    </div>
+                </div>
+                <h3 class="row top-10 truncate">
+                    {{load.weight ? (load.weight | number) : 'Weight is NA'}} <span ng-if="load.weight !== 'Weight is NA' && load.weight">lbs</span>
+                    &nbsp; | &nbsp;
+                    {{load.type | soloCapitalize}}
+                    <span ng-show="load.rateSearched">
+                        &nbsp; | &nbsp;
+                        Rate: {{load.rateSearched | currency}}
+                    </span>
+                    &nbsp; | &nbsp;
+                    {{load.equipment}}
+                </h3>
+                <div class="row top-5" style="border-top: 1px solid #dedede; padding-top: 4px">
+                    <h3 class="col col-50 bottom-0" style="padding-left: 0px;">
+                        <div style="padding-top: 8px;">
+                            {{load.company.name === 'SEE LOAD' ? 'NA' : load.company.name}}
+                        </div>
+                    </h3>
+                    <h3 class="col col-50" style="padding-right: 0px;">
+                        <button ng-if="load.status === 'called'" type="button" class="button button-outline button-positive" style="float: left; min-height: inherit; height: auto; padding: 4px 15px; line-height: initial;" ng-click="vm.openBookPopup(load)">
+                            Book
+                        </button>
+                        <button type="button" class="button button-outline button-balanced" style="float: right; min-height: inherit; height: auto; padding: 4px 20px; line-height: initial;" ng-click="vm.openCallPopup(load)">
+                            Call
+                        </button>
+                    </h3>
+                </div>
+            </ion-item>
+            <div ng-if="!vm.canGetMoreLoads() && vm.loads.length !== 0" class="item item-divider">All loads are displayed</div>
+        </ion-list>
+        <ion-infinite-scroll ng-if="vm.canGetMoreLoads()" on-infinite="vm.getMoreLoads()" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,15 @@
+<div>
+    <h4 class="top-0 bottom-5">Pickup Location:</h4>
+    <h3 class="top-5 bottom-5">
+        {{vm.currentLoadToCall.origin.city}}, {{vm.currentLoadToCall.origin.state}}
+    </h3>
+    <h4 class="bottom-5">Destination:</h4>
+    <h3 class="top-5 bottom-5">
+        {{vm.currentLoadToCall.destination.city}}, {{vm.currentLoadToCall.destination.state}}
+    </h3>
+    <h4 class="bottom-5">Company Name:</h4>
+    <h3 class="top-5 bottom-5">{{vm.currentLoadToCall.company.name === 'SEE LOAD' ? 'NA' : vm.currentLoadToCall.company.name}}</h3>
+    <a ng-href="tel:{{vm.formatPhoneNumberForCall(vm.currentLoadToCall.company.phone)}}" class="button button-balanced button-block top-15" ng-click="vm.calledLoad()">
+        <b>CALL</b>
+    </a>
+</div>

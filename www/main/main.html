@@ -1,0 +1,78 @@
+<!-- the nav bar will be updated as we navigate between views -->
+<!-- <ion-nav-bar> can be removed when using sidemenu (contained in main.html) -->
+<ion-nav-bar class="bar-stable">
+    <ion-nav-back-button></ion-nav-back-button>
+</ion-nav-bar>
+
+<ion-side-menus enable-menu-with-back-views="false">
+
+    <!-- CONTENT -->
+    <ion-side-menu-content>
+
+        <!-- header bar -->
+        <!-- the nav bar will be updated as we navigate between views -->
+        <ion-nav-bar class="bar-stable">
+
+            <!-- back button, shown if applicable -->
+            <ion-nav-back-button class="button-clear" ng-click="goBack()"></ion-nav-back-button>
+
+            <!-- nav button, shown if applicable -->
+            <ion-nav-buttons side="left">
+                <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+            </ion-nav-buttons>
+
+            <!-- loading spinner -->
+            <ion-nav-buttons side="right">
+                <solo-resolving-spinner active="refresherActive"></solo-resolving-spinner>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+
+        <!-- ROUTING INJECTED HERE: pageContent -->
+        <ion-nav-view name="pageContent"></ion-nav-view>
+
+    </ion-side-menu-content>
+
+    <!-- SIDEMENU -->
+    <ion-side-menu side="left">
+
+        <!-- menu content -->
+        <ion-content>
+            <ion-list>
+                <div class="item item-dark top-10" style="border-bottom: none; border-top: 0px;">
+                    <img src="main/assets/images/solo-logo.png" style="width: 50%;">
+                </div>
+                <ion-item menu-close class="item item-dark">
+                    <span><b><div style="width: 38px; display: inline-block;">O/O</div> {{main.user.firstName}}</b></span>
+                </ion-item>
+                <ion-item menu-close class="item item-dark item-icon-left" ui-sref="top.main.loads.search">
+                    <i class="icon ion-ios-search-strong" style="font-size: 25px;"></i>
+                    Search
+                </ion-item>
+                <ion-item menu-close class="item item-dark item-icon-left" ui-sref="top.main.dashboard" style="border: none;">
+                    <i class="icon ion-ios-speedometer-outline" style="font-size: 25px;"></i>
+                    Dashboard
+                </ion-item>
+                <ion-item menu-close class="item item-dark item-icon-left" ui-sref="top.main.loads.history" style="border: none;">
+                    <i class="icon ion-android-folder-open" style="font-size: 25px;"></i>
+                    History
+                </ion-item>
+                <ion-item menu-close class="item item-dark item-icon-left" ui-sref="top.main.loads.called" style="border: none;">
+                    <i class="icon ion-ios-timer-outline" style="font-size: 25px;"></i>
+                    Recently Called
+                </ion-item>
+                <ion-item menu-close class="item item-dark item-icon-left" ng-click="main.openCallHomeBasePopup()" style="border: none;">
+                    <i class="icon ion-ios-telephone-outline" style="font-size: 25px;"></i>
+                    Call Homebase
+                </ion-item>
+                <ion-item menu-close class="item item-dark item-icon-left" href="" ng-click="main.logout()" style="border: none;">
+                    <i class="icon ion-log-out" style="font-size: 25px;"></i>
+                    Logout
+                </ion-item>
+            </ion-list>
+            <div class="text-soft text-light bottom-10" style="font-style: italic; position: absolute; bottom: 0px; left: 10px;">
+                {{main.currentAppVersion}}
+            </div>
+        </ion-content>
+    </ion-side-menu>
+
+</ion-side-menus>

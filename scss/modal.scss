@@ -1,0 +1,10 @@
+.modal {
+    background-color: $stable;
+    
+    .bar-header {
+        background-color: $stable;
+        h1.title {
+            color: $positive;
+        }
+    }
+}

@@ -1,0 +1,23 @@
+ion-footer-bar {
+    &.solo-footer-button {
+        padding: 0px; 
+        background-image: none;
+
+        button {
+            border-radius: 0;
+            border: none;
+        }
+    }
+
+    &.bar-footer {
+        background-color: $stable;
+        &.bar-footer-action-center {
+            .text-center {
+                width: 100%;
+                .button {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

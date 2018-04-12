@@ -1,0 +1,12 @@
+<div ng-show="field.$touched" class="solo-form-group-errors" ng-messages="field.$error">
+    <ng-transclude></ng-transclude>
+    <p class="error" ng-message="required">{{label}} is required</p>
+    <p class="error" ng-message="email">The email is not correct</p>
+    <p class="error" ng-message="zipCode">Zip code is not correct</p>
+    <p class="error" ng-message="ssn">Invalid SSN</p>
+    <p class="error" ng-message="custom">{{field.$error.custom}}</p>
+    <p class="error" ng-message="minlength"> {{label}} is too short </p>
+    <p class="error" ng-message="validDate">Date of birth is not correct</p>
+    <p class="error" ng-message="underHundred">Date of birth is not correct</p>
+    <p class="error" ng-message="overEighteen">You must be at least 18 years old</p>
+</div>

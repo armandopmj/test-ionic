@@ -1,0 +1,3 @@
+<ion-list>
+    <ion-radio ng-repeat="loadType in vm.loadTypes | orderBy: 'name'" ng-model="vm.tempSelectedLoadType" ng-value="loadType">{{loadType.name}}</ion-radio>
+</ion-list>

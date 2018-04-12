@@ -1,0 +1,162 @@
+<ion-view view-title="Load Details">
+    <ion-content>
+        <ion-list>
+            <!-- Status -->
+            <ion-item class="item-stable item-clear">
+                <h2 class="text-dark-title">Status:</h2>
+                <h2 class="text-calm">{{vm.load.statusDisplayMessage}}</h2>
+            </ion-item>
+            <div class="divider-left-open"></div>
+
+            <!-- Arrived At Load Pickup Location -->
+            <ion-item ng-if="vm.load.status === 'signedRc'" class="item-icon-right item-text-wrap item-stable" style="border: none;" ng-click="vm.confirmArrivedAtOrigin(vm.load)">
+                <h2 class="text-dark-title">Arrived At Load Pickup Location:</h2>
+                <h2 class="text-positive text-soft">Let homebase know you arrived at the load pickup location</h2>
+                <i class="icon ion-chevron-right ion-large icon-accessory"></i>
+            </ion-item>
+            <div ng-if="vm.load.status === 'signedRc'" class="divider-left-open"></div>
+
+            <!-- Picked Up Load -->
+            <ion-item ng-if="vm.load.status === 'arrivedAtOrigin'" class="item-icon-right item-text-wrap item-stable" style="border: none;" ng-click="vm.confirmLoadPickUp(vm.load)">
+                <h2 class="text-dark-title">Pick Up Load:</h2>
+                <h2 class="text-positive text-soft">Let homebase know load has been picked up</h2>
+                <i class="icon ion-chevron-right ion-large icon-accessory"></i>
+            </ion-item>
+            <div ng-if="vm.load.status === 'arrivedAtOrigin'" class="divider-left-open"></div>
+
+            <!-- Arrived At Load Destination -->
+            <ion-item ng-if="vm.load.status === 'pickedUp'" class="item-icon-right item-text-wrap item-stable" style="border: none;" ng-click="vm.confirmArrivedAtDestination(vm.load)">
+                <h2 class="text-dark-title">Arrived At Load Destination:</h2>
+                <h2 class="text-positive text-soft">Let homebase know you arrived at the load destination</h2>
+                <i class="icon ion-chevron-right ion-large icon-accessory"></i>
+            </ion-item>
+            <div ng-if="vm.load.status === 'pickedUp'" class="divider-left-open"></div>
+
+            <!-- Drop off Load -->
+            <ion-item ng-if="vm.load.status === 'arrivedAtDestination'" class="item-icon-right item-text-wrap item-stable" style="border: none;" ng-click="vm.confirmLoadDropOff(vm.load)">
+                <h2 class="text-dark-title">Drop Off Load:</h2>
+                <h2 class="text-positive text-soft">Let homebase know load has been dropped off</h2>
+                <i class="icon ion-chevron-right ion-large icon-accessory"></i>
+            </ion-item>
+            <div ng-if="vm.load.status === 'arrivedAtDestination'" class="divider-left-open"></div>
+
+            <!-- Bill of Lading -->
+            <ion-item ng-if="vm.load.status === 'droppedOff'  || vm.load.status === 'uploadedBol' || vm.load.status === 'verifiedBol' || vm.load.status === 'paid'" class="item-icon-right item-text-wrap item-stable" style="border: none;" ui-sref="top.main.loads.load.bill-of-lading">
+                <h2  class="text-dark-title">Bill of Lading:</h2>
+                <h2 ng-if="vm.load.status === 'droppedOff'" class="text-assertive">Please Upload Bill Of Lading</h2>
+                <h2 ng-if="vm.load.status !== 'droppedOff'" class="text-assertive">Click to View</h2>
+                <i class="icon ion-chevron-right ion-large icon-accessory"></i>
+            </ion-item>
+            <div ng-if="vm.load.status === 'droppedOff'  || vm.load.status === 'uploadedBol' || vm.load.status === 'verifiedBol' || vm.load.status === 'paid'" class="divider-left-open"></div>
+
+            <!-- Rate Confirmation -->
+            <ion-item ng-if="vm.load.rateConfirmation && vm.load.rateConfirmation.length > 0" class="item-icon-right item-stable" style="border: none;" ui-sref="top.main.loads.load.rate-confirmation({rateConfirmationUrl: vm.load.rateConfirmation[0]})">
+                <h2 class="text-dark-title">Rate Confirmation:</h2>
+                <h2>Received & Signed</h2>
+                <i class="icon ion-chevron-right ion-large icon-accessory"></i>
+            </ion-item>
+            <ion-item ng-if="!vm.load.rateConfirmation || vm.load.rateConfirmation.length === 0" class="item-stable" style="border: none;">
+                <h2 class="text-dark-title">Rate Confirmation:</h2>
+                <h2 class="text-positive text-soft">Not Yet Received</h2>
+            </ion-item>
+            <div class="divider-left-open"></div>
+
+            <!-- Call -->
+            <ion-item class="item-icon-right item-stable item-clear" style="border: none;" ng-click="vm.openCallPopup(null, vm.load)">
+                <h2 class="text-dark-title">Call:</h2>
+                {{vm.load.company.phone}}
+                <i class="icon ion-chevron-right ion-large icon-accessory"></i>
+            </ion-item>
+            <div class="divider-left-open"></div>
+
+            <!-- Rate -->
+            <ion-item class="item-stable item-clear">
+                <h2 class="text-dark-title">Rate:</h2>
+                <h2 ng-if="vm.load.rateExpected">{{vm.load.rateExpected | currency}}</h2>
+                <h2 ng-if="!vm.load.rateExpected" class="text-positive text-soft" >Not Yet Received</h2>
+            </ion-item>
+            <div class="divider-left-open"></div>
+
+            <!-- Pickup -->
+            <ion-item class="item-text-wrap item-stable item-clear">
+                <h2 class="text-dark-title">Pickup:</h2>
+                <div>
+                    <h3 style="display: inline-block">{{vm.load.origin.formattedDate}}</h3>
+                </div>
+            </ion-item>
+            <div class="divider-left-open"></div>
+
+            <!-- Pickup Location -->
+            <ion-item class="item-text-wrap item-stable item-clear">
+                <h2 class="text-dark-title">Pickup Location:</h2>
+                <h2>
+                    {{vm.load.origin.city}}, {{vm.load.origin.state}}
+                </h2>
+            </ion-item>
+            <div class="divider-left-open"></div>
+
+            <!-- Destination -->
+            <ion-item class="item-text-wrap item-stable item-clear">
+                <h2 class="text-dark-title">Destination:</h2>
+                <h2> {{vm.load.destination.city}}, {{vm.load.destination.state}} </h2>
+            </ion-item>
+            <div class="divider-left-open"></div>
+
+            <!-- Miles -->
+            <ion-item class="item-text-wrap item-stable item-clear">
+                <h2 class="text-dark-title">Distance:</h2>
+                <h2> {{vm.load.miles | number:0}} m </h2>
+            </ion-item>
+            <div class="divider-left-open"></div>
+
+            <!-- unbook load -->
+            <ion-item ng-if="vm.load.status === 'booked'" class="item-icon-right item-stable" style="border: none;" ng-click="vm.confirmUnbookLoad(vm.load)">
+                <h2 class="text-dark-title">Unbook Load:</h2>
+                <h2 class="text-assertive">Removes load from Dashboard</h2>
+                <i class="icon ion-chevron-right ion-large icon-accessory"></i>
+            </ion-item>
+            <div ng-if="vm.load.status === 'booked'" class="divider-left-open"></div>
+
+            <!-- Undo Arrived At Pickup Location -->
+            <ion-item ng-if="vm.load.status === 'arrivedAtOrigin'" class="item-text-wrap item-icon-right item-stable" style="border: none;" ng-click="vm.confirmUndoArrivedAtOrigin(vm.load)">
+                <h2 class="text-dark-title">Undo Arrived at Load Pickup Location:</h2>
+                <h2 class="text-assertive">Only if you accidentally clicked "Arrived at Load Pickup Location" </h2>
+                <i class="icon ion-chevron-right ion-large icon-accessory"></i>
+            </ion-item>
+            <div ng-if="vm.load.status === 'arrivedAtOrigin'" class="divider-left-open"></div>
+
+            <!-- Undo Load Pick Up -->
+            <ion-item ng-if="vm.load.status === 'pickedUp'" class="item-text-wrap item-icon-right item-stable" style="border: none;" ng-click="vm.confirmUndoPickUpLoad(vm.load)">
+                <h2 class="text-dark-title">Undo Load Pick Up:</h2>
+                <h2 class="text-assertive">Only if you accidentally clicked "Pick Up" </h2>
+                <i class="icon ion-chevron-right ion-large icon-accessory"></i>
+            </ion-item>
+            <div ng-if="vm.load.status === 'pickedUp'" class="divider-left-open"></div>
+
+            <!-- Undo Arrived At Destination -->
+            <ion-item ng-if="vm.load.status === 'arrivedAtDestination'" class="item-text-wrap item-icon-right item-stable" style="border: none;" ng-click="vm.confirmUndoArrivedAtDestination(vm.load)">
+                <h2 class="text-dark-title">Undo Arrived at Load Destination:</h2>
+                <h2 class="text-assertive">Only if you accidentally clicked "Arrived at Load Destination" </h2>
+                <i class="icon ion-chevron-right ion-large icon-accessory"></i>
+            </ion-item>
+            <div ng-if="vm.load.status === 'arrivedAtDestination'" class="divider-left-open"></div>
+
+            <!-- Undo Load Drop Off -->
+            <ion-item ng-if="vm.load.status === 'droppedOff'" class="item-text-wrap item-icon-right item-stable" style="border: none;" ng-click="vm.confirmUndoDropOffLoad(vm.load)">
+                <h2 class="text-dark-title">Undo Load Drop Off:</h2>
+                <h2 class="text-assertive">Only if you accidentally clicked "Drop Off" </h2>
+                <i class="icon ion-chevron-right ion-large icon-accessory"></i>
+            </ion-item>
+            <div ng-if="vm.load.status === 'droppedOff'" class="divider-left-open"></div>
+
+            <!-- Cancel Load -->
+            <ion-item ng-if="vm.load.status === 'signedRc' || vm.load.status === 'pickedUp' || vm.load.status === 'droppedOff'" class="item-text-wrap item-icon-right item-stable" style="border: none;" ng-click="vm.confirmCancelLoad(vm.load)">
+                <h2 style="color: #865757;">Cancel Load:</h2>
+                <h2 class="text-assertive">Only if you have canceled with shipper</h2>
+                <i class="icon ion-chevron-right ion-large icon-accessory"></i>
+            </ion-item>
+            <div ng-if="vm.load.status === 'signedRc' || vm.load.status === 'pickedUp' || vm.load.status === 'droppedOff'" class="divider-left-open"></div>
+
+        </ion-list>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,5 @@
+// C: Fix for breif black screen during navigation, refer to 
+//    https://forum.ionicframework.com/t/brief-black-screen-during-navigation/9480/46
+[nav-view-transition="ios"][nav-view-direction="forward"], [nav-view-transition="ios"][nav-view-direction="back"] {
+    background-color: transparent !important;
+}

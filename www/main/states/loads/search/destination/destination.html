@@ -1,0 +1,105 @@
+<form solo-form name="vm.formDestination" ng-submit="vm.submitDestination()" novalidate>
+    <ion-modal-view class="">
+        <ion-header-bar class="bar bar-header bar-positive item-icon-right" style="background-image: none;">
+            <h1 class="title">Destination(s)</h1>
+            <i class="icon ion-close-round ion-large icon-accessory" ng-click="vm.cancelDestination()"></i>
+        </ion-header-bar>
+        <ion-content>
+            <div class="list">
+                <div ng-repeat="destination in vm.modalDestinations">
+                    <div solo-form-group ng-if="destination.type !== 'merica'">
+                        <div class="item item-input">
+                            <span>Desination {{ $index + 1 }} &nbsp - &nbsp&nbsp</span>
+                            <span ng-click="vm.removeDestination($index)">
+                                <a href="">
+                                    click to remove
+                                </a>
+                            </span>
+                            <!-- C: hidden input needed for name attr required by solo-form-group -->
+                            <input type="text" name="states" style="display: none;">
+                        </div>
+                    </div>
+                    <div ng-if="destination.type === 'radius'">
+                        <div solo-form-group>
+                            <label class="item item-input">
+                                <span class="text-dark-title input-label">City: </span>
+                                <input type="text" name="city" ng-model="destination.city" class="text-right" placeholder="Enter City" style="font-size: 16px">
+                            </label>
+                            <div solo-form-group-errors="vm.formDestination.city" label="City"></div>
+                        </div>
+                        <div solo-form-group>
+                            <label class="item item-input item-select">
+                                <div class="text-dark-title input-label">
+                                    State:
+                                </div>
+                                <select ng-options="state.abbreviation as state.name for state in vm.states"  ng-model="destination.state" ng-class="{ 'text-soft': !destination.state }" style="font-size: 16px" name="state">
+                                    <option value="">- Select State -</option>
+                                </select>
+                            </label>
+                            <div solo-form-group-errors="vm.formDestination.state" label="State"></div>
+                        </div>
+                        <div solo-form-group>
+                            <label class="item item-input item-select">
+                                <div class="text-dark-title input-label">
+                                    Radius:
+                                </div>
+                                <select ng-options="milesOption as milesOption for milesOption in vm.milesOptions"  ng-model="destination.miles" ng-class="{ 'text-soft': !destination.miles }" style="font-size: 16px" name="miles">
+                                    <option value="">- Select Miles -</option>
+                                </select>
+                            </label>
+                            <div solo-form-group-errors="vm.formDestination.miles" label="Miles"></div>
+                        </div>
+                    </div>
+                    <div solo-form-group ng-if="destination.type === 'state'">
+                        <label class="item item-input item-select">
+                            <div class="text-dark-title input-label">
+                                State:
+                            </div>
+                            <select ng-options="state.abbreviation as state.name for state in vm.states"  ng-model="destination.state" ng-class="{ 'text-soft': !destination.state }" style="font-size: 16px" name="state">
+                                <option value="">- Select State -</option>
+                            </select>
+                        </label>
+                        <div solo-form-group-errors="vm.formDestination.state" label="State"></div>
+                    </div>
+                    <div solo-form-group ng-if="destination.type === 'merica'">
+                        <label class="item item-input item-select">
+                            <div class="text-dark-title input-label">
+                                States:
+                            </div>
+                            <select ng-model="destination.state" style="font-size: 16px" name="states">
+                                <option selected value="">All</option>
+                            </select>
+                        </label>
+                        <div solo-form-group-errors="vm.formDestination.state" label="State"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center padding-horizontal bottom-10" ng-if="vm.maxDestinationsError">
+                <span class="text-assertive">
+                    {{ vm.maxDestinationsError }}
+                </span>
+            </div>
+            <div class="button-bar padding text-center">
+                <h4>Search one or multiple destinations by adding one or more of the follow options:</h4>
+            </div>
+            <div class="button-bar padding">
+                <button type="button" ng-click="vm.addStateDestination()" class="button button-stable" style="border-radius: 0px; border-color: #d9d8d8;">
+                    <h4 class="text-positive"> Search by State </h4>
+                </button>
+                <button type="button" ng-click="vm.addRadiusDestination()" class="button button-stable" style="border-radius: 0px; border-color: #d9d8d8;">
+                    <h4 class="text-positive"> Search by Radius </h4>
+                </button>
+            </div>
+            <div class="button-bar padding bottom-40">
+                <button type="button" ng-click="vm.addMericaDestination()" class="button button-stable" style="border-radius: 0px; border-color: #d9d8d8;">
+                    <h4 class="text-positive"> Search All Destinations </h4>
+                </button>
+            </div>
+        </ion-content>
+        <ion-footer-bar class="solo-footer-button bar-footer-action-center">
+            <button type="submit" class="button button-positive button-block top-0 bottom-0" ladda="false" ng-class="{ 'button-positive': !vm.formDestination.noCompeleDestinations, 'button-assertive': vm.formDestination.noCompeleDestinations }">
+                <h4 class="text-light bottom-0"> {{vm.formDestination.noCompeleDestinations || 'Enter'}} </h4>
+            </button>
+        </ion-footer-bar>
+    </ion-modal-view>
+</form>

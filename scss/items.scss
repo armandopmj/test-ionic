@@ -1,0 +1,20 @@
+.item {
+    background-color: $stable;
+    
+    &.card {
+        background-color: $light;
+    }
+    h1 {
+        margin: 0 0 2px 0;
+        font-size: 26px;
+    }
+
+    &.item-clear {
+        border: none;
+        padding: 10px 16px;
+    }
+
+    select {
+        background-color: inherit;
+    }
+}

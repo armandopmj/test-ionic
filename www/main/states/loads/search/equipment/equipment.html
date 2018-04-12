@@ -1,0 +1,3 @@
+<ion-list>
+    <ion-checkbox ng-repeat="equipmentType in vm.data.equipmentTypes | orderBy: 'name'" ng-model="equipmentType.isActive">{{equipmentType.name}}</ion-checkbox>
+</ion-list>

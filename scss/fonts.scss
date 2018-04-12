@@ -1,0 +1,12 @@
+// Lato is a sans serif typeface
+// WORKAROUND quoting the URL because of https://github.com/sass/node-sass/issues/999
+@import url("https://fonts.googleapis.com/css?family=Lato:300,700,400,100italic,300italic,700italic");
+
+body * {
+    font-family: "Lato", -apple-system, 'Helvetica Neue', Roboto, 'Segoe UI', sans-serif !important;
+}
+
+// WORKAROUND fix elements with font-weight set to 500, which doesn't exist for Lato
+.bar .title {
+    font-weight: bold !important;
+}
